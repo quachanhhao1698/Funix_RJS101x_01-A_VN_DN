@@ -1,17 +1,18 @@
 import React,{Component} from "react";
-import {Card,CardTitle} from 'reactstrap';
+import {Card,CardImg,CardImgOverlay,CardText,CardBody,CardTitle} from 'reactstrap';
+import staffDetail from "./StaffDetailComponent";
 
 class StaffList extends Component{
     constructor(props) {
     super(props);
 
     this.state = {
-        selectStaff:null
+        selectedStaff:null
         }
     }
 
     onStaffSelect(staffs){
-        this.setState({selectStaff: staffs});
+        this.setState({selectedStaff: staffs});
     }
 
     render() {
@@ -20,7 +21,10 @@ class StaffList extends Component{
             return (
                 <div key={staffs.id} className="col-12 col-sm-6 col-md-4  mt-1">
                     <Card onClick = {() => this.onStaffSelect(staffs)}>
-                        <CardTitle heading>{staffs.name}</CardTitle>
+                        <CardImg width="100%" src={staffs.image} alt={staffs.name} />
+                        <CardBody>
+                            <CardTitle >{staffs.name}</CardTitle>
+                        </CardBody>
                     </Card>
 
                 </div>
@@ -33,8 +37,13 @@ class StaffList extends Component{
                     <div className="row">
                         {staffList}
                     </div>
+
                     <div>
                         <p>Bấm vào tên nhân viên để xem thông tin</p>
+                    </div>
+
+                    <div className="row">
+                        <staffDetail selectedStaff={this.state.selectedStaff}/>
                     </div>
                 
             </div>
