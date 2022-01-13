@@ -10,7 +10,7 @@ class StaffDetail extends Component {
     renderStaff(staffs){
         if(staffs != null){
             return(
-                <div className="col-12 col-sm-6 col-md-4  mt-1">
+                <div className="col-12 col-md-6 col-lg-4 mt-4">
                     <Card>
                         <CardImg width="100%" src={staffs.image} alt={staffs.name} />
 
