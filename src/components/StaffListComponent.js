@@ -1,24 +1,27 @@
 import React,{Component} from "react";
-import {Media} from 'reactstrap';
-import {STAFFS} from '../shared/staffs';
+import {Card,CardTitle} from 'reactstrap';
 
 class StaffList extends Component{
     constructor(props) {
     super(props);
 
     this.state = {
-        staffs:STAFFS
+        selectStaff:null
         }
+    }
+
+    onStaffSelect(staffs){
+        this.setState({selectStaff: staffs});
     }
 
     render() {
 
-        const staffList=this.state.staffs.map((staffs)=> {
+        const staffList=this.props.staffs.map((staffs)=> {
             return (
-                <div key={staffs.id} className="col-12 col-md-5 mt-1">
-                    <Media tag="li">
-                        <Media heading>{staffs.name}</Media>
-                    </Media>
+                <div key={staffs.id} className="col-12 col-sm-6 col-md-4  mt-1">
+                    <Card onClick = {() => this.onStaffSelect(staffs)}>
+                        <CardTitle heading>{staffs.name}</CardTitle>
+                    </Card>
 
                 </div>
             );
@@ -26,11 +29,14 @@ class StaffList extends Component{
 
         return(
             <div className="container">
-                <div className="row">
-                    <Media list>
+                
+                    <div className="row">
                         {staffList}
-                    </Media>
-                </div>
+                    </div>
+                    <div>
+                        <p>Bấm vào tên nhân viên để xem thông tin</p>
+                    </div>
+                
             </div>
         );
     }

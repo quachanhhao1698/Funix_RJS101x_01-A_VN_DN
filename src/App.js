@@ -1,19 +1,32 @@
+import React,{ Component } from 'react';
 import { Navbar, NavbarBrand } from 'reactstrap';
-import './App.css';
 import StaffList from './components/StaffListComponent';
+import './App.css';
+import {STAFFS} from './shared/staffs';
 
 
-function App() {
-  return (
-    <div>
-      <Navbar dark color='primary'>
-        <div className='container'>
-          <NavbarBrand href='/'>Ứng dụng quản lú nhân sự v1.0</NavbarBrand>
-        </div>
-      </Navbar>
-      <StaffList/>
-    </div>
-  );
+class App extends Component{
+  
+  constructor(staffs){
+    super(staffs);
+
+    this.state = {
+      staffs: STAFFS
+    };
+  }
+
+  render() {
+    return(
+      <div>
+        <Navbar dark color='primary'>
+          <div className='container'>
+            <NavbarBrand href='/'>Ứng dụng quản lú nhân sự v1.0</NavbarBrand>
+          </div>
+        </Navbar>
+        <StaffList staffs={this.state.staffs}/>
+      </div>
+    );
+  }
 }
 
 export default App;
