@@ -1,6 +1,6 @@
 import React,{Component} from "react";
 import {Card,CardImg,CardImgOverlay,CardText,CardBody,CardTitle} from 'reactstrap';
-import staffDetail from "./StaffDetailComponent";
+import StaffDetail from "./StaffDetailComponent";
 
 class StaffList extends Component{
     constructor(props) {
@@ -43,7 +43,7 @@ class StaffList extends Component{
                     </div>
 
                     <div className="row">
-                        <staffDetail selectedStaff={this.state.selectedStaff}/>
+                        <StaffDetail selectedStaff={this.state.selectedStaff}/>
                     </div>
                 
             </div>
