@@ -1,5 +1,6 @@
 import { Navbar, NavbarBrand } from 'reactstrap';
 import './App.css';
+import StaffList from './components/StaffListComponent';
 
 
 function App() {
@@ -10,6 +11,7 @@ function App() {
           <NavbarBrand href='/'>Ứng dụng quản lú nhân sự v1.0</NavbarBrand>
         </div>
       </Navbar>
+      <StaffList/>
     </div>
   );
 }
