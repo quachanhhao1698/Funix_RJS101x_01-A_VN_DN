@@ -5,7 +5,7 @@ import {ROLE} from '../shared/staffs';
 
 
 
-class StaffDetail extends Component {
+class StaffDetailComponent extends Component {
 
     renderStaff(staffs){
         if(staffs != null){
@@ -71,4 +71,4 @@ class StaffDetail extends Component {
     }
 }
 
-export default StaffDetail;
+export default StaffDetailComponent;

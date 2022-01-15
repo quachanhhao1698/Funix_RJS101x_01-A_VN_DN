@@ -1,10 +1,8 @@
 import React,{ Component } from 'react';
 import { Navbar, NavbarBrand } from 'reactstrap';
-import StaffList from './components/StaffListComponent';
-import Colbtn from './components/ColButtonComponent';
+import StaffListComponent from './components/StaffListComponent';
 import './App.css';
 import {STAFFS} from './shared/staffs';
-
 
 class App extends Component{
   
@@ -13,6 +11,7 @@ class App extends Component{
 
     this.state = {
       staffs: STAFFS
+
     };
   }
 
@@ -24,8 +23,7 @@ class App extends Component{
             <NavbarBrand href='/'>Ứng dụng quản lý nhân sự v1.0</NavbarBrand>
           </div>
         </Navbar>
-        <Colbtn/>
-        <StaffList staffs={this.state.staffs}/>
+        <StaffListComponent staffs={this.state.staffs}/>
       </div>
     );
   }
