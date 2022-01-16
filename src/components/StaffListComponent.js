@@ -11,9 +11,9 @@ class StaffList extends Component{
 
     this.state = {
         selectedStaff:null,
-        column:3,
+        // column:3,
         selectedClolumn:{
-            desktop: 3,
+            desktop: 4,
             tablet: 6,
             mobile: 12
         }
@@ -76,7 +76,7 @@ class StaffList extends Component{
         this.setState({
             // column:6,
             selectedClolumn:{
-                desktop: 3,
+                desktop: 4,
                 tablet: 6,
                 mobile: 12
             }
@@ -123,8 +123,9 @@ class StaffList extends Component{
                     <Card className={"mt-3 card"} onClick = {() => this.onStaffSelect(staffs)}>
                         <CardImg className={"cardImage"} width="100%" src={staffs.image} alt={staffs.name} />
                         <CardBody width="100%" className={"cardBody"}>
-                            <CardTitle>{staffs.name}</CardTitle>
+                            <CardTitle className={"cardTitle"}>{staffs.name}</CardTitle>
                             {this.renderLevel(staffs)}
+                            <CardText>Phòng ban: {staffs.department.name} </CardText>
                         </CardBody>
                     </Card>
 
@@ -144,8 +145,8 @@ class StaffList extends Component{
                             <ButtonGroup>
                             <Button onClick={this.onClickColDefault}>Mặc định</Button>
                             <Button onClick={this.onClickCol2}>2</Button>
-                            <Button onClick={this.onClickCol3}>3</Button>
-                            {/* <Button onClick={this.onClickCol4}>4</Button> */}
+                            {/* <Button onClick={this.onClickCol3}>3</Button> */}
+                            <Button onClick={this.onClickCol4}>4</Button>
                             <Button onClick={this.onClickCol6}>6</Button>
                             </ButtonGroup>
                         </Col>

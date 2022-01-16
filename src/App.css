@@ -21,13 +21,15 @@ body{
     }
     .cardBody{
         padding: .5rem;
+    }
+    .cardTitle{
         text-align: center;
     }
     
 
     @media (min-width: 1200px){
         .container{
-            max-width: 100%;
+            max-width: 800%;
             padding: 0 4rem;
         }
     }
