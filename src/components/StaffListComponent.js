@@ -17,7 +17,7 @@ class StaffList extends Component{
             mobile: 12
         }
         };
-        this.onClickColBack = this.onClickColBack.bind(this);
+        this.onClickColDefault = this.onClickColDefault.bind(this);
         this.onClickCol2 = this.onClickCol2.bind(this);
         this.onClickCol3 = this.onClickCol3.bind(this);
         this.onClickCol4 = this.onClickCol4.bind(this);
@@ -71,7 +71,7 @@ class StaffList extends Component{
             }});
     }
 
-    onClickColBack() {
+    onClickColDefault() {
         this.setState({
             // column:6,
             selectedClolumn:{
@@ -87,6 +87,8 @@ class StaffList extends Component{
         // let classname = 'col-lg-';
         // classname += this.state.column;
 
+        let countStaffs=this.props.staffs.length;
+
         const staffList=this.props.staffs.map((staffs)=> {
             return (
                 <Col
@@ -101,7 +103,7 @@ class StaffList extends Component{
                     <Card onClick = {() => this.onStaffSelect(staffs)}>
                         <CardImg width="100%" src={staffs.image} alt={staffs.name} />
                         <CardBody width="100%">
-                            <CardTitle>{staffs.name}</CardTitle>
+                            <CardTitle tag={"hs"}>{staffs.name}</CardTitle>
                         </CardBody>
                     </Card>
 
@@ -114,28 +116,36 @@ class StaffList extends Component{
         return(
             <Container >
 
-                    <Row className={"mt-3"}>
-                        <p>Chọn số cột :</p>
-                        <ButtonGroup className="col-2">
-                        <Button onClick={this.onClickColBack}>Default</Button>
-                        <Button onClick={this.onClickCol2}>2</Button>
-                        <Button onClick={this.onClickCol3}>3</Button>
-                        {/* <Button onClick={this.onClickCol4}>4</Button> */}
-                        <Button onClick={this.onClickCol6}>6</Button>
-                        </ButtonGroup>
+                <Row>
+                     <Col>
+                            <h5>Chọn số cột :</h5>
+                       
+                            <ButtonGroup>
+                            <Button onClick={this.onClickColDefault}>Mặc định</Button>
+                            <Button onClick={this.onClickCol2}>2</Button>
+                            <Button onClick={this.onClickCol3}>3</Button>
+                            {/* <Button onClick={this.onClickCol4}>4</Button> */}
+                            <Button onClick={this.onClickCol6}>6</Button>
+                            </ButtonGroup>
+                        </Col>
+                        
 
-                    </Row>
+
                     
-                    <Row>
-                        {staffList}
-                    </Row>
+                        <h5>Số lượng nhân viên : {countStaffs} </h5>
+                </Row>
+                    
+                <Row>
+                    {staffList}
+                </Row>
 
-                    <Row>
-                        <p>Bấm vào tên nhân viên để xem thông tin</p>
-                    </Row>
-                    <Row>
-                        <StaffDetail selectedStaff={this.state.selectedStaff}/>
-                    </Row>
+                <Row className={"m-3"}>
+                    <h5>Bấm vào tên nhân viên để xem thông tin</h5>
+                </Row>
+
+                <Row>
+                    <StaffDetail selectedStaff={this.state.selectedStaff}/>
+                </Row>
                 
             </Container>
         );
