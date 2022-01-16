@@ -1,3 +1,41 @@
-.show{
-    background-color: red;
+body{
+    scroll-behavior: smooth;
 }
+
+.titleStaff{
+    text-align: center;
+    font-size: 3rem;
+    font-weight: 400;
+    margin-top: 1rem;
+
+}
+
+    .card{
+        border-radius: 10px;
+        box-shadow: 10px 5px 10px #333;
+    }
+
+    .cardImage{
+        border-radius: 10px;
+
+    }
+    .cardBody{
+        padding: .5rem;
+        text-align: center;
+    }
+    
+
+    @media (min-width: 1200px){
+        .container{
+            max-width: 100%;
+            padding: 0 4rem;
+        }
+    }
+
+    @media (min-width: 768px){
+        .container{
+            max-width: 100%;
+            padding: 0 4rem;
+        }
+    }
+    

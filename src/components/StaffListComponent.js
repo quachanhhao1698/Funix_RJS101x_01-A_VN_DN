@@ -1,8 +1,9 @@
 import React,{Component} from "react";
-import {Card,CardImg,CardBody,CardTitle,Button,ButtonGroup,Col,Row,Container} from 'reactstrap';
+import {Card,CardImg,CardBody,CardTitle,Button,ButtonGroup,Col,Row,Container, CardText} from 'reactstrap';
 import StaffDetail from "./StaffDetailComponent";
-import $ from 'jquery';
 import '../App.css';
+import {ROLE} from '../shared/staffs';
+
 
 class StaffList extends Component{
     constructor(props) {
@@ -82,6 +83,23 @@ class StaffList extends Component{
         });
     }
 
+    renderLevel(staffs){
+        let level = staffs.salaryScale;
+        if(staffs != null){
+            if(level > 1){
+                return (
+                    <CardText>Chức vụ: {ROLE.MANAGER_STAFF}</CardText>
+                );
+            }else {
+                return (
+                    <CardText>Chức vụ: {ROLE.NORMAL_STAFF}</CardText>
+                );
+            }
+        }else{
+            return <div></div>
+        }
+    }
+
     render() {
 
         // let classname = 'col-lg-';
@@ -91,6 +109,8 @@ class StaffList extends Component{
 
         const staffList=this.props.staffs.map((staffs)=> {
             return (
+
+                
                 <Col
                     key={staffs.id}
                     xs={this.state.selectedClolumn.mobile}
@@ -100,10 +120,11 @@ class StaffList extends Component{
                     // className={classname}
                     >
 
-                    <Card onClick = {() => this.onStaffSelect(staffs)}>
-                        <CardImg width="100%" src={staffs.image} alt={staffs.name} />
-                        <CardBody width="100%">
-                            <CardTitle tag={"hs"}>{staffs.name}</CardTitle>
+                    <Card className={"mt-3 card"} onClick = {() => this.onStaffSelect(staffs)}>
+                        <CardImg className={"cardImage"} width="100%" src={staffs.image} alt={staffs.name} />
+                        <CardBody width="100%" className={"cardBody"}>
+                            <CardTitle>{staffs.name}</CardTitle>
+                            {this.renderLevel(staffs)}
                         </CardBody>
                     </Card>
 
@@ -114,9 +135,9 @@ class StaffList extends Component{
 
 
         return(
-            <Container >
+            <Container className={"mb-3 container"} >
 
-                <Row>
+                <Row className={"mt-3"}>
                      <Col>
                             <h5>Chọn số cột :</h5>
                        
@@ -129,13 +150,14 @@ class StaffList extends Component{
                             </ButtonGroup>
                         </Col>
                         
-
-
                     
                         <h5>Số lượng nhân viên : {countStaffs} </h5>
                 </Row>
+
+                <p className="titleStaff">Danh sách nhân viên</p>
                     
                 <Row>
+                    
                     {staffList}
                 </Row>
 
@@ -143,7 +165,7 @@ class StaffList extends Component{
                     <h5>Bấm vào tên nhân viên để xem thông tin</h5>
                 </Row>
 
-                <Row>
+                <Row id="staff-detail">
                     <StaffDetail selectedStaff={this.state.selectedStaff}/>
                 </Row>
                 
