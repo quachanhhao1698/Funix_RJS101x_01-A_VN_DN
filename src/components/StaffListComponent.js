@@ -124,8 +124,8 @@ class StaffList extends Component{
                         <CardImg className={"cardImage"} width="100%" src={staffs.image} alt={staffs.name} />
                         <CardBody width="100%" className={"cardBody"}>
                             <CardTitle className={"cardTitle"}>{staffs.name}</CardTitle>
-                            {this.renderLevel(staffs)}
-                            <CardText>Phòng ban: {staffs.department.name} </CardText>
+                            {/* {this.renderLevel(staffs)}
+                            <CardText className={"cardText"}>Phòng ban: {staffs.department.name} </CardText> */}
                         </CardBody>
                     </Card>
 

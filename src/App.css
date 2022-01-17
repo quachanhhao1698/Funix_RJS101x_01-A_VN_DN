@@ -10,6 +10,7 @@ body{
 
 }
 
+
     .card{
         border-radius: 10px;
         box-shadow: 10px 5px 10px #333;
@@ -23,7 +24,12 @@ body{
         padding: .5rem;
     }
     .cardTitle{
+        /* font-size: 100%; */
         text-align: center;
+    }
+    .cardText{
+        font-size: 100%;
+
     }
     
 
