@@ -13,9 +13,9 @@ class StaffList extends Component{
         selectedStaff:null,
         // column:3,
         selectedClolumn:{
-            desktop: 4,
-            tablet: 6,
-            mobile: 12
+            desktop: 2,
+            tablet: 4,
+            mobile: 6
         }
         };
         this.onClickColDefault = this.onClickColDefault.bind(this);
@@ -76,28 +76,11 @@ class StaffList extends Component{
         this.setState({
             // column:6,
             selectedClolumn:{
-                desktop: 4,
-                tablet: 6,
-                mobile: 12
+                desktop: 2,
+                tablet: 4,
+                mobile: 6
             }
         });
-    }
-
-    renderLevel(staffs){
-        let level = staffs.salaryScale;
-        if(staffs != null){
-            if(level > 1){
-                return (
-                    <CardText>Chức vụ: {ROLE.MANAGER_STAFF}</CardText>
-                );
-            }else {
-                return (
-                    <CardText>Chức vụ: {ROLE.NORMAL_STAFF}</CardText>
-                );
-            }
-        }else{
-            return <div></div>
-        }
     }
 
     render() {
@@ -124,8 +107,6 @@ class StaffList extends Component{
                         <CardImg className={"cardImage"} width="100%" src={staffs.image} alt={staffs.name} />
                         <CardBody width="100%" className={"cardBody"}>
                             <CardTitle className={"cardTitle"}>{staffs.name}</CardTitle>
-                            {/* {this.renderLevel(staffs)}
-                            <CardText className={"cardText"}>Phòng ban: {staffs.department.name} </CardText> */}
                         </CardBody>
                     </Card>
 
@@ -145,9 +126,9 @@ class StaffList extends Component{
                             <ButtonGroup>
                             <Button onClick={this.onClickColDefault}>Mặc định</Button>
                             <Button onClick={this.onClickCol2}>2</Button>
-                            {/* <Button onClick={this.onClickCol3}>3</Button> */}
+                            <Button onClick={this.onClickCol3}>3</Button>
                             <Button onClick={this.onClickCol4}>4</Button>
-                            <Button onClick={this.onClickCol6}>6</Button>
+                            {/* <Button onClick={this.onClickCol6}>6</Button> */}
                             </ButtonGroup>
                         </Col>
                         
@@ -155,7 +136,8 @@ class StaffList extends Component{
                         <h5>Số lượng nhân viên : {countStaffs} </h5>
                 </Row>
 
-                <p className="titleStaff">Danh sách nhân viên</p>
+                <h4 className="mt-4">Nhân viên</h4>
+                <hr/>
                     
                 <Row>
                     
