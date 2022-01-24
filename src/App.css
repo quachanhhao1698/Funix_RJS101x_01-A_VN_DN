@@ -59,6 +59,9 @@
         background-color: #D1C4E9;
         margin:0px auto;
         padding: 20px 0px 20px 0px;
+       
+        
+
     }
 
     
@@ -70,8 +73,13 @@
     .navbar-dark {
         background-color: #512DA8;
     }
-    .logo{
-        border-radius: 50%;
+
+
+
+    .home{
+        height: 100vh;
     }
 
   
+
+

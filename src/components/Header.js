@@ -1,5 +1,5 @@
 import React,{Component} from "react";
-import {Navbar,NavbarBrand,Nav,NavbarToggler,Collapse,NavItem,Jumbotron} from 'reactstrap';
+import {Navbar,NavbarBrand,Nav,NavbarToggler,Collapse,NavItem} from 'reactstrap';
 import {NavLink} from 'react-router-dom';
 
 
@@ -29,22 +29,23 @@ class Header extends Component {
                         <Collapse isOpen={this.state.isNavOpen} navbar>
 
                             <Nav navbar>
+                           
                                 <NavItem>
-                                    <NavLink className={"nav-link"} to="/home">
+                                    <NavLink className={"nav-link"} to="/nhanvien">
                                         <span className="fa fa-users fa-lg"></span>
                                         <span> Nhân viên</span>
                                     </NavLink>
                                 </NavItem>
 
                                 <NavItem>
-                                    <NavLink className={"nav-link"} to="/aboutus">
+                                    <NavLink className={"nav-link"} to="/phongban">
                                         <span className="fa fa-id-card fa-lg"></span>
                                         <span> Phòng Ban</span>
                                     </NavLink>
                                 </NavItem>
 
                                 <NavItem>
-                                    <NavLink className={"nav-link"} to="/menu">
+                                    <NavLink className={"nav-link"} to="/bangluong">
                                         <span className="fa fa-money fa-lg"></span>
                                         <span> Bảng Lương</span>
                                     </NavLink>

@@ -1,8 +1,19 @@
 import React,{Component} from "react";
-import {Card,CardImg,CardBody,CardTitle,Button,ButtonGroup,Col,Row,Container, CardText} from 'reactstrap';
+import {Card,CardImg,CardBody,CardTitle,Button,ButtonGroup,Col,Row,Container} from 'reactstrap';
 import StaffDetail from "./StaffDetailComponent";
 import '../App.css';
-import {ROLE} from '../shared/staffs';
+
+
+function RenderStaffs({staff,onClick}){
+    return(
+        <Card className={"mt-3 card"}>
+            <CardImg className={"cardImage"} width="100%" src={staff.image} alt={staff.name} />
+            <CardBody width="100%" className={"cardBody"}>
+                <CardTitle className={"cardTitle"}>{staff.name}</CardTitle>
+            </CardBody>
+        </Card>
+    );
+}
 
 
 class StaffList extends Component{
@@ -102,13 +113,8 @@ class StaffList extends Component{
                     className={"mt-3"}
                     // className={classname}
                     >
-
-                    <Card className={"mt-3 card"} onClick = {() => this.onStaffSelect(staffs)}>
-                        <CardImg className={"cardImage"} width="100%" src={staffs.image} alt={staffs.name} />
-                        <CardBody width="100%" className={"cardBody"}>
-                            <CardTitle className={"cardTitle"}>{staffs.name}</CardTitle>
-                        </CardBody>
-                    </Card>
+                        <RenderStaffs staff={staffs} onclick={this.props.onClick}/>
+                    
 
                 </Col>
             );
