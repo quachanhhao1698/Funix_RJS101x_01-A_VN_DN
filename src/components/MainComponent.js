@@ -5,6 +5,7 @@ import {Switch,Route,Redirect}  from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
 import StaffDetailComponent from './StaffDetailComponent';
+import DepartmentsComponent from './DepartmentsComponent';
 
 
 export default class MainComponent extends Component {
@@ -34,7 +35,9 @@ export default class MainComponent extends Component {
           <div>
             <Header/>
             <Switch>
-              <Route exact path="/nhanvien" component={()=> <StaffListComponent staffs={this.state.staffs}/> } />
+              <Route exact path="/nhanvien"          component={()=> <StaffListComponent staffs={this.state.staffs}/> } />
+              <Route       path="/nhanvien/:staffId" component={StaffWithId} />
+              <Route exact path="/phongban"          component={()=> <DepartmentsComponent departments={this.state.departments} />} />
               <Redirect to="/nhanvien" />
             </Switch>
             

@@ -1,5 +1,6 @@
 import React,{Component} from "react";
 import {Card,CardImg,CardBody,CardTitle,Button,ButtonGroup,Col,Row,Container} from 'reactstrap';
+import { Link } from 'react-router-dom';
 import StaffDetail from "./StaffDetailComponent";
 import '../App.css';
 
@@ -7,10 +8,12 @@ import '../App.css';
 function RenderStaffs({staff,onClick}){
     return(
         <Card className={"mt-3 card"}>
-            <CardImg className={"cardImage"} width="100%" src={staff.image} alt={staff.name} />
-            <CardBody width="100%" className={"cardBody"}>
-                <CardTitle className={"cardTitle"}>{staff.name}</CardTitle>
-            </CardBody>
+            <Link to={`/nhanvien/${staff.id}`}>
+                <CardImg className={"cardImage"} width="100%" src={staff.image} alt={staff.name} />
+                <CardBody width="100%" className={"cardBody"}>
+                    <CardTitle className={"cardTitle"}>{staff.name}</CardTitle>
+                </CardBody>
+            </Link>
         </Card>
     );
 }
@@ -21,7 +24,7 @@ class StaffList extends Component{
     super(props);
 
     this.state = {
-        selectedStaff:null,
+        
         // column:3,
         selectedClolumn:{
             desktop: 2,
@@ -96,9 +99,7 @@ class StaffList extends Component{
 
     render() {
 
-        // let classname = 'col-lg-';
-        // classname += this.state.column;
-
+       
         let countStaffs=this.props.staffs.length;
 
         const staffList=this.props.staffs.map((staffs)=> {
@@ -154,9 +155,9 @@ class StaffList extends Component{
                     <h5>Bấm vào tên nhân viên để xem thông tin</h5>
                 </Row>
 
-                <Row id="staff-detail">
+                {/* <Row id="staff-detail">
                     <StaffDetail selectedStaff={this.state.selectedStaff}/>
-                </Row>
+                </Row> */}
                 
             </Container>
         );

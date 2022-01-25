@@ -1,74 +1,87 @@
 import React,{Component} from "react";
-import { Card, CardImg, CardText, CardBody, CardTitle } from 'reactstrap';
+import { Card, CardImg, CardText, CardBody, CardTitle,Breadcrumb,BreadcrumbItem } from 'reactstrap';
+import { Link } from 'react-router-dom';
 import dateFormat from "dateformat";
 import {ROLE} from '../shared/staffs';
 
 
 
-class StaffDetailComponent extends Component {
+function RenderStaff({staff}) {
+    if(staff != null){
+        return(
+            <div className="row">
 
-    renderStaff(staffs){
-        if(staffs != null){
-            return(
-                <div className="col-12 col-md-6 col-lg-4 mt-4">
-                    <Card>
-                        <CardImg width="100%" src={staffs.image} alt={staffs.name} />
-
-                        <CardBody>
-                            <CardTitle>Họ và Tên: {staffs.name}</CardTitle>
-                            {this.renderLevel(this.props.selectedStaff)}
-                            <CardText>Ngày sinh: {dateFormat(staffs.doB,"dd/mm/yyyy")}</CardText>
-                            <CardText>Ngày vào công ty: {dateFormat(staffs.startDate,"dd/mm/yyyy")}</CardText>
-                            <CardText>Phòng ban: {staffs.department.name} </CardText>
-                            <CardText>Số ngày nghỉ còn lại: {staffs.annualLeave}</CardText>
-                            <CardText>Số ngày đã đi làm thêm: {staffs.overTime}</CardText>
-                        </CardBody>
-                    </Card>
-            </div>
-            );
-        }
-        else{
-            return(
-                <div></div>
-            );
-        }
-    }
-
-    renderLevel(staffs){
-        let level = staffs.salaryScale;
-        if(staffs != null){
-            if(level > 1){
-                return (
-                    <CardText>Chức vụ: {ROLE.MANAGER_STAFF}</CardText>
-                );
-            }else {
-                return (
-                    <CardText>Chức vụ: {ROLE.NORMAL_STAFF}</CardText>
-                );
-            }
-        }else{
-            return <div></div>
-        }
-    }
-
-    render (){
-        let staff;
-        if(this.props.selectedStaff){
-            staff = (
-                <div className="row">
-                    {this.renderStaff(this.props.selectedStaff)}
+                <div className="col-12 col-sm-4 col-md-3 mt-3">
+                    <div>
+                        <CardImg width="100%" height="100%" src={staff.image} alt={staff.name} />
+                    </div>
                 </div>
-            )
-        }else {
-            staff = <div></div>
-        }
 
-        return (
-            <div className="container">
-                {staff}
-            </div>
+                <div className="col-12 col-sm-8 col-md-9 mt-3">
+                <div>
+                    <CardBody>
+                        <CardTitle>Họ và Tên: {staff.name}</CardTitle>
+                        <RenderLevel level={staff.salaryScale}/>
+                       
+                        <CardText>Ngày sinh: {dateFormat(staff.doB,"dd/mm/yyyy")}</CardText>
+                        <CardText>Ngày vào công ty: {dateFormat(staff.startDate,"dd/mm/yyyy")}</CardText>
+                        <CardText>Phòng ban: {staff.department.name} </CardText>
+                        <CardText>Số ngày nghỉ còn lại: {staff.annualLeave}</CardText>
+                        <CardText>Số ngày đã đi làm thêm: {staff.overTime}</CardText>
+                    </CardBody>
+                </div>
+
+                </div>
+        </div>
         );
     }
+    else{
+        return(
+            <div></div>
+        );
+    }
+}
+
+function RenderLevel({level}){
+   
+        if(level > 1){
+            return (
+                <CardText>Chức vụ: {ROLE.MANAGER_STAFF}</CardText>
+            );
+        }else {
+            return (
+                <CardText>Chức vụ: {ROLE.NORMAL_STAFF}</CardText>
+            );
+        }
+    
+}
+
+
+function StaffDetailComponent(props) {
+    let staff=props.staff;
+    console.log(props.staff);
+
+    if(props.staff){
+        staff = (
+            <div className="row">
+                <RenderStaff staff={props.staff} />
+            </div>
+        )
+    }else {
+        staff = <div>fsdfsdfsd</div>
+    }
+
+    return (
+        <div className="container mt-3 mb-3">
+            <div className="row">
+                <Breadcrumb>
+                    <BreadcrumbItem><Link to='/nhanvien'>Nhân viên</Link></BreadcrumbItem>
+                    <BreadcrumbItem active>{props.staff.name}</BreadcrumbItem>
+                </Breadcrumb>
+            </div>
+            {staff}
+        </div>
+    );
 }
 
 export default StaffDetailComponent;
