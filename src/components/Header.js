@@ -20,11 +20,11 @@ class Header extends Component {
     render() {
         return(
             <React.Fragment>
-                <Navbar color={"primary"} dark expand={"md"}>
+                <Navbar color={"primary"} dark  expand={"md"}>
                     <div className="container">
                         <NavbarToggler onClick={this.toggleNav} />
                         <NavbarBrand className={"mr-auto"} href="/">
-                            <img src="/assets/logo/logo.png" height={"30"} width={"41"} alt="Logo" className="logo"/>
+                            <img src="/assets/logo/logo.png" height={"30"} width={"30"} alt="Logo" className="logo"/>
                         </NavbarBrand>
                         <Collapse isOpen={this.state.isNavOpen} navbar>
 

@@ -6,6 +6,7 @@ import Header from './Header';
 import Footer from './Footer';
 import StaffDetailComponent from './StaffDetailComponent';
 import DepartmentsComponent from './DepartmentsComponent';
+import PayrollComponent from './PayrollComponent';
 
 
 export default class MainComponent extends Component {
@@ -38,6 +39,7 @@ export default class MainComponent extends Component {
               <Route exact path="/nhanvien"          component={()=> <StaffListComponent staffs={this.state.staffs}/> } />
               <Route       path="/nhanvien/:staffId" component={StaffWithId} />
               <Route exact path="/phongban"          component={()=> <DepartmentsComponent departments={this.state.departments} />} />
+              <Route exact path="/bangluong"         component={()=> <PayrollComponent  payroll={this.state.staffs}/>} />
               <Redirect to="/nhanvien" />
             </Switch>
             
