@@ -1,5 +1,5 @@
 import React,{Component} from "react";
-import {Card,CardImg,CardBody,CardTitle,Button,ButtonGroup,Col,Row,Container} from 'reactstrap';
+import {Card,CardImg,CardBody,CardTitle,Button,ButtonGroup,Col,Row,Container,Toast} from 'reactstrap';
 import { Link } from 'react-router-dom';
 import StaffDetail from "./StaffDetailComponent";
 import '../App.css';
@@ -7,11 +7,11 @@ import '../App.css';
 
 function RenderStaffs({staff,onClick}){
     return(
-        <Card className={"mt-3 card"}>
+        <Card className={"mt-3 card-nv"}>
             <Link to={`/nhanvien/${staff.id}`}>
-                <CardImg className={"cardImage"} width="100%" src={staff.image} alt={staff.name} />
-                <CardBody width="100%" className={"cardBody"}>
-                    <CardTitle className={"cardTitle"}>{staff.name}</CardTitle>
+                <CardImg className={"cardImg-nv"} width="100%" src={staff.image} alt={staff.name} />
+                <CardBody width="100%" className={"cardBody-nv"}>
+                    <CardTitle className={"cardTitle-nv"}>{staff.name}</CardTitle>
                 </CardBody>
             </Link>
         </Card>
@@ -125,6 +125,11 @@ class StaffList extends Component{
 
         return(
             <Container className={"mb-3 container"} >
+                
+                <div className="col-12">
+                    <h2 className="mt-3">Nhân viên</h2>
+                    <hr/>
+                </div>
 
                 <Row className={"mt-3"}>
                      <Col>
@@ -140,11 +145,8 @@ class StaffList extends Component{
                         </Col>
                         
                     
-                        <h5>Số lượng nhân viên : {countStaffs} </h5>
-                </Row>
-
-                <h4 className="mt-4">Nhân viên</h4>
-                <hr/>
+                        <h5 className="mt-2 pl-2">Số lượng nhân viên : {countStaffs} </h5>
+                </Row>               
                     
                 <Row>
                     

@@ -1,4 +1,4 @@
-
+/* 
 
     .card{
         border-radius: 10px;
@@ -14,7 +14,6 @@
         padding: .5rem;
     }
     .cardTitle{
-        /* font-size: 100%; */
         text-align: center;
         font-size: 1rem;
 
@@ -23,9 +22,9 @@
         font-size: 100%;
 
     }
-    
+     */
 
-    @media (min-width: 1200px){
+    /* @media (min-width: 1200px){
         .container{
             max-width: 800%;
             padding: 0 4rem;
@@ -37,47 +36,104 @@
             max-width: 100%;
             padding: 0 4rem;
         }
-    }
+    } */
 
     /* --------------- */
     
 
 
 
-    .row-header{
+    /* .row-header{
         margin:0px auto;
         padding:0px auto;
-    }
+    } */
 
    
-    
+/*     
     .row-content {
         margin:0px auto;
         padding: 50px 0px 50px 0px;
         border-bottom: 1px ridge;
         min-height:400px;
+    } */
+
+    /* CSS for all */
+
+    body{
+        background-image: linear-gradient(to top,#02598f,rgb(220, 220, 20)) ;
+    }    
+
+    .card{
+        padding: 15px;
+        border: 1px black solid;
+        border-radius: 5px;
+    }
+    .cardImg{
+        padding: 5px;
+        border: 1px black solid;
+    }
+    .cardTitle{
+        font-size: 16px;
+        margin: 5px 0;
+    }
+    .cardBody{
+        padding: 0;
+        text-align: center;
     }
     
     .footer{
-        background-color: #D1C4E9;
+        color: white;
+        background-color: #003556;
         margin:0px auto;
-        padding: 20px 0px 20px 0px;
-       
-        
-
+        padding: 40px 0px 0px 0px;
     }
+    /* ------------------------------------ */
+
+    /* CSS for StaffListComponent */
+
+    .card-nv{
+        padding: 5px;
+        background-color: #003556;
+    }
+
+    .cardImg-nv{
+        padding: 8px;
+        border-radius: 25px 25px 0 0;
+        background-color: white;
+    }
+    .card-nv:hover .cardImg-nv{
+        padding: 0px;
+        border: 2px yellow solid;
+        border-radius: 50%;
+        transition: all .3s ease;
+    }
+    .cardTitle-nv{
+        font-size: 16px;
+        margin: 15px 0;
+        color: white;
+        text-decoration: none;
+    }
+
+    .cardBody-nv{
+        padding: 0;
+        text-align: center;
+    }
+    
+
+    /* ------------------------------------ */
 
     
     address{
         font-size:80%;
         margin:0px;
-        color:#0f0f0f;
+        color:white;
     }
     .navbar-dark {
-        background-color: #512DA8;
+        background-color: #003556;
     }
-
-
+    .nav-item:hover span {
+        color: yellow;
+    }
 
     .home{
         height: 100vh;
