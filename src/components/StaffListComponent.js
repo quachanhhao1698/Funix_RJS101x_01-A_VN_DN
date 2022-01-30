@@ -1,7 +1,6 @@
-import React,{Component} from "react";
-import {Card,CardImg,CardBody,CardTitle,Button,ButtonGroup,Col,Row,Container,Toast} from 'reactstrap';
+import React,{ useState} from "react";
+import {Card,CardImg,CardBody,CardTitle,Button,ButtonGroup,Col,Row,Container} from 'reactstrap';
 import { Link } from 'react-router-dom';
-import StaffDetail from "./StaffDetailComponent";
 import '../App.css';
 
 
@@ -19,102 +18,25 @@ function RenderStaffs({staff,onClick}){
 }
 
 
-class StaffList extends Component{
-    constructor(props) {
-    super(props);
 
-    this.state = {
-        
-        // column:3,
-        selectedClolumn:{
-            desktop: 2,
-            tablet: 4,
-            mobile: 6
-        }
-        };
-        this.onClickColDefault = this.onClickColDefault.bind(this);
-        this.onClickCol2 = this.onClickCol2.bind(this);
-        this.onClickCol3 = this.onClickCol3.bind(this);
-        this.onClickCol4 = this.onClickCol4.bind(this);
-        this.onClickCol6 = this.onClickCol6.bind(this);
-    }
 
-    onStaffSelect(staffs){
-        this.setState({selectedStaff: staffs});
-    }
+function StaffList(props) {
 
-    
-
-    onClickCol2() {
-        this.setState({
-            // column:6,
-            selectedClolumn:{
-                desktop: 6,
-                tablet: 6,
-                mobile: 6
-            }
-        });
-    }
-
-    onClickCol3() {
-        this.setState({
-            // column:4,
-            selectedClolumn:{
-                desktop: 4,
-                tablet: 4,
-                mobile: 4
-            }});
-    }
-
-    onClickCol4() {
-        this.setState({
-            // column:3,
-            selectedClolumn:{
-                desktop: 3,
-                tablet: 3,
-                mobile: 3
-            }});
-    }
-    
-    onClickCol6() {
-        this.setState({
-            // column:2,
-            selectedClolumn:{
-                desktop: 2,
-                tablet: 2,
-                mobile: 2
-            }});
-    }
-
-    onClickColDefault() {
-        this.setState({
-            // column:6,
-            selectedClolumn:{
-                desktop: 2,
-                tablet: 4,
-                mobile: 6
-            }
-        });
-    }
-
-    render() {
-
+    const [col, setCol] = useState(0);
        
-        let countStaffs=this.props.staffs.length;
+        let countStaffs=props.staffs.length;
+        console.log(countStaffs)
 
-        const staffList=this.props.staffs.map((staffs)=> {
+        const staffList=props.staffs.map((staffs)=> {
             return (
 
-                
-                <Col
-                    key={staffs.id}
-                    xs={this.state.selectedClolumn.mobile}
-                    md={this.state.selectedClolumn.tablet}
-                    lg={this.state.selectedClolumn.desktop}                
+                <Col key={staffs.id}
+                    xs={col || "6"}
+                    md={col || "4"}
+                    lg={col || "2"}                
                     className={"mt-3"}
-                    // className={classname}
                     >
-                        <RenderStaffs staff={staffs} onclick={this.props.onClick}/>
+                        <RenderStaffs staff={staffs} onclick={props.onClick}/>
                     
 
                 </Col>
@@ -124,46 +46,40 @@ class StaffList extends Component{
 
 
         return(
-            <Container className={"mb-3 container"} >
+            <Container className={"mb-3 "} >
                 
                 <div className="col-12">
-                    <h2 className="mt-3">Nhân viên</h2>
+                    <h3 className="mt-3">Nhân viên</h3>
                     <hr/>
                 </div>
-
-                <Row className={"mt-3"}>
-                     <Col>
-                            <h5>Chọn số cột :</h5>
-                       
-                            <ButtonGroup>
-                            <Button onClick={this.onClickColDefault}>Mặc định</Button>
-                            <Button onClick={this.onClickCol2}>2</Button>
-                            <Button onClick={this.onClickCol3}>3</Button>
-                            <Button onClick={this.onClickCol4}>4</Button>
-                            {/* <Button onClick={this.onClickCol6}>6</Button> */}
-                            </ButtonGroup>
-                        </Col>
-                        
-                    
-                        <h5 className="mt-2 pl-2">Số lượng nhân viên : {countStaffs} </h5>
-                </Row>               
-                    
                 <Row>
-                    
+                    <div className="col-12 col-sm-6 col-md-8">
+                    <h5>Chọn số cột</h5>
+                    <ButtonGroup>
+                        <Button onClick={() => setCol(0)}>Mặc định</Button>
+                        <Button onClick={() => setCol(6)}>2</Button>
+                        <Button onClick={() => setCol(4)}>3</Button>
+                        <Button onClick={() => setCol(3)}>4</Button>
+                    </ButtonGroup>
+                    </div>
+
+                    <div className="col-0 col-sm-6 col-md-4 mt-3">
+                        <h5>Số lượng nhân viên : {countStaffs}</h5>
+                    </div>
+                </Row>                                   
+                <Row>                    
                     {staffList}
                 </Row>
 
                 <Row className={"m-3"}>
-                    <h5>Bấm vào tên nhân viên để xem thông tin</h5>
-                </Row>
-
-                {/* <Row id="staff-detail">
-                    <StaffDetail selectedStaff={this.state.selectedStaff}/>
-                </Row> */}
+                    <h5>Bấm vào nhân viên để xem thông tin</h5>
+                    <br/>
+                   
+                </Row>               
                 
             </Container>
         );
-    }
+    
 }
 
 export default StaffList;

@@ -8,7 +8,6 @@ import StaffDetailComponent from './StaffDetailComponent';
 import DepartmentsComponent from './DepartmentsComponent';
 import PayrollComponent from './PayrollComponent';
 
-
 export default class MainComponent extends Component {
 
   constructor(props){
@@ -16,10 +15,17 @@ export default class MainComponent extends Component {
 
     this.state = {
       staffs: STAFFS,
-      departments: DEPARTMENTS
+      departments: DEPARTMENTS,
+      selectedClolumn:{
+        desktop: 2,
+        tablet: 4,
+        mobile: 6
+    }
 
     };
   }
+
+  
 
   render() {
 
@@ -32,17 +38,20 @@ export default class MainComponent extends Component {
       );
     };
 
+    
+
       return(
           <div>
             <Header/>
             <Switch>
-              <Route exact path="/nhanvien"          component={()=> <StaffListComponent staffs={this.state.staffs}/> } />
+              <Route exact path="/nhanvien"          component={()=> <StaffListComponent staffs={this.state.staffs}/>}/>
               <Route       path="/nhanvien/:staffId" component={StaffWithId} />
               <Route exact path="/phongban"          component={()=> <DepartmentsComponent departments={this.state.departments} />} />
               <Route exact path="/bangluong"         component={()=> <PayrollComponent  payroll={this.state.staffs}/>} />
+              
               <Redirect to="/nhanvien" />
+
             </Switch>
-            
             <Footer />
             
           </div>

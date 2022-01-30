@@ -59,9 +59,18 @@
 
     /* CSS for all */
 
+    *{
+        box-sizing: border-box;
+        font-family: Arial, Helvetica, sans-serif;
+    }
     body{
         background-image: linear-gradient(to top,#02598f,rgb(220, 220, 20)) ;
-    }    
+       
+    }
+    
+    .row {
+        margin: 0;
+    }
 
     .card{
         padding: 15px;
@@ -98,7 +107,7 @@
 
     .cardImg-nv{
         padding: 8px;
-        border-radius: 25px 25px 0 0;
+        border-radius: 15px 15px 0 0;
         background-color: white;
     }
     .card-nv:hover .cardImg-nv{
@@ -121,6 +130,20 @@
     
 
     /* ------------------------------------ */
+
+    /* CSS for StaffDetailComponent */
+
+    .detailStaff {
+        border: 1px black solid;
+    }
+
+    .staffImg {
+        height: 100%;
+        padding: 40px 0px;
+    }
+
+    /* ------------------------------------ */
+
 
     
     address{

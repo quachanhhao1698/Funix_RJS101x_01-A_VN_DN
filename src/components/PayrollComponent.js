@@ -25,7 +25,7 @@ export default function PayrollComponent(props) {
     const payrollOfStaffs = props.payroll.map((payroll) =>{
 
         return(
-            <Col className="col-12 col-sm-6 col-md-4 mt-3">
+            <Col className="col-12 col-md-6 col-lg-4 mt-3">
                 <RenderListPayrollOfStaffs staff={payroll}/>
             </Col>
         );

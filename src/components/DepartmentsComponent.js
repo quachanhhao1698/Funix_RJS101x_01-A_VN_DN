@@ -16,7 +16,7 @@ export default function DepartmentsComponent(props) {
 
   const departmentList = props.departments.map((department)=>{
     return(
-      <Col className={"col-12 col-sm-6 col-md-4 mt-3"}>
+      <Col className={"col-12 col-md-6 col-lg-4 mt-3"}>
         <RenderDepartments department={department}/>
       </Col>
     );

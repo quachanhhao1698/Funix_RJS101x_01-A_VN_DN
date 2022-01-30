@@ -9,15 +9,14 @@ import {ROLE} from '../shared/staffs';
 function RenderStaff({staff}) {
     if(staff != null){
         return(
-            <div className="row">
-
-                <div className="col-12 col-sm-4 col-md-3 mt-3">
-                    <div>
+            <div className="row ">
+                <div className="col-12 col-md-4 col-lg-3 mt-3 ">
+                    <div className="staffImg">
                         <CardImg width="100%" height="100%" src={staff.image} alt={staff.name} />
                     </div>
                 </div>
 
-                <div className="col-12 col-sm-8 col-md-9 mt-3">
+                <div className="col-12 col-md-8 col-lg-9 mt-3">
                 <div>
                     <CardBody>
                         <CardTitle>Họ và Tên: {staff.name}</CardTitle>
@@ -68,7 +67,7 @@ function StaffDetailComponent(props) {
             </div>
         )
     }else {
-        staff = <div>fsdfsdfsd</div>
+        staff = <div></div>
     }
 
     return (
