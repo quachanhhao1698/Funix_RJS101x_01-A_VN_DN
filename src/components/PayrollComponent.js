@@ -1,5 +1,6 @@
 import React from 'react';
-import {Card,CardTitle,CardText,Col} from 'reactstrap';
+import {Card,CardTitle,CardText,Col,Breadcrumb,BreadcrumbItem} from 'reactstrap';
+import { Link } from 'react-router-dom'
 
 
 function RenderListPayrollOfStaffs({staff}){
@@ -35,9 +36,15 @@ export default function PayrollComponent(props) {
   return(
       <div className='container mt-3'>
         <div className="col-12">
-            <h3>Bảng lương</h3>
+            <h3>Bảng Lương</h3>
             <hr/>
         </div>
+        <div className="row">
+                <Breadcrumb>
+                    <BreadcrumbItem><Link to='/nhanvien'>Nhân Viên</Link></BreadcrumbItem>
+                    <BreadcrumbItem active>Bảng Lương</BreadcrumbItem>
+                </Breadcrumb>
+            </div>
         <div className='row mb-3'>
             {payrollOfStaffs}
         </div>

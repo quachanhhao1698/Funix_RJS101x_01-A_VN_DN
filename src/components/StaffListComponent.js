@@ -22,10 +22,11 @@ function RenderStaffs({staff,onClick}){
 
 function StaffList(props) {
 
-    const [col, setCol] = useState(0);
-       
+        const [col, setCol] = useState(0);
+    
+        // Số lượng nhân viên
         let countStaffs=props.staffs.length;
-        console.log(countStaffs)
+        // console.log(countStaffs)
 
         const staffList=props.staffs.map((staffs)=> {
             return (
@@ -49,9 +50,10 @@ function StaffList(props) {
             <Container className={"mb-3 "} >
                 
                 <div className="col-12">
-                    <h3 className="mt-3">Nhân viên</h3>
+                    <h3 className="mt-3">Nhân Viên</h3>
                     <hr/>
                 </div>
+                
                 <Row>
                     <div className="col-12 col-sm-6 col-md-8">
                     <h5>Chọn số cột</h5>

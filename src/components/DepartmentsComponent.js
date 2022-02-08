@@ -24,15 +24,15 @@ export default function DepartmentsComponent(props) {
   });
  return(
    <div className='container mt-3'>
-     {/* <div className="row">
+      <div className="col-12">
+        <h3>Phòng Ban</h3>
+        <hr/>
+      </div>
+     <div className="row">
         <Breadcrumb>
           <BreadcrumbItem><Link to='/nhanvien'>Nhân viên</Link></BreadcrumbItem>
           <BreadcrumbItem active>Phòng Ban</BreadcrumbItem>
         </Breadcrumb>
-      </div> */}
-      <div className="col-12">
-        <h3>Phòng Ban</h3>
-        <hr/>
       </div>
      <div className='row mt-3 mb-3'>
       {departmentList}
