@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
-import { Breadcrumb , BreadcrumbItem,Button,Form ,FormGroup,Label,Input,Col,Row,FormFeedback } from 'reactstrap';
+import { Breadcrumb , BreadcrumbItem,Button,Form ,FormGroup,Label,Input,Col,FormFeedback } from 'reactstrap';
 import {Link} from 'react-router-dom';
-import { Field } from 'react-redux-form';
 
 class Contact extends Component{
 
@@ -79,7 +78,7 @@ class Contact extends Component{
             error.telnum = "Tel. Number  should contain only numbers !"
         }
 
-        if(this.state.touched.email && email.split('').filter(x => x === '@').length != 1) {
+        if(this.state.touched.email && email.split('').filter(x => x === '@').length !== 1) {
             error.email = "Email should contain a @ !"
         }
 
