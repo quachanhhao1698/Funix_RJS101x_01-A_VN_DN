@@ -1,4 +1,4 @@
-import React,{ useState} from "react";
+import React,{ useRef, useState} from "react";
 import {Card,CardImg,CardBody,CardTitle,Button,Col,Row,Container,Input,Modal,ModalBody,ModalHeader,Form,FormGroup,Label} from 'reactstrap';
 import { Link } from 'react-router-dom';
 import '../App.css';
@@ -30,9 +30,14 @@ function StaffListComponent(props) {
         // Số lượng nhân viên
         let countStaffs=props.staffs.length;
 
-        const[keyWord, setKeyWord]= useState('');
-        const[searchItem, setSearchItem] = useState('')
         const[togleModal,setTogleModal] = useState(false);
+
+        // const[keyWord, setKeyWord]= useState('');
+        const[searchItem, setSearchItem] = useState('')
+
+        const inputRef = useRef(null);
+
+
 
         const staffList = props.staffs
         //Lọc nhân viên có tên trùng với keyword
@@ -48,22 +53,17 @@ function StaffListComponent(props) {
         .map((staffs)=> {
             return (
 
-                <Col key={staffs.id}
-                    xs={col || "6"}
-                    md={col || "4"}
-                    lg={col || "2"}                
-                    className={"mt-3"}
-                    >
+                <Col key={staffs.id} xs={col || "6"} md={col || "4"} lg={col || "2"} className={"mt-3"} >
                         <RenderStaffs staff={staffs} onclick={props.onClick}/>
-                    
-
                 </Col>
             );
         });
 
-        const handleSearch = ()=>{
-            setSearchItem(keyWord)
+
+        const handleSearch = () =>{
+           setSearchItem(inputRef.current.value);
         }
+
 
 
         
@@ -97,7 +97,9 @@ function StaffListComponent(props) {
                 </Row>
                 
                 <Row>
-                    <Col className={'col-12 col-md-5 mt-2'}>
+                    {/* Search sử dụng controlled */}
+
+                    {/* <Col className={'col-12 col-md-5 mt-2'}>
                         <Input type="text" id="search" name="search" value={keyWord}
                                 placeholder="Tìm kiếm"
                                 onChange={(e)=>{ setKeyWord(e.target.value)}}
@@ -105,7 +107,17 @@ function StaffListComponent(props) {
                     </Col>
                     <Col className={'col-12 col-md-3 mt-2'}>
                         <Button color='primary' onClick={handleSearch}>Tìm</Button>
+                    </Col> */}
+
+                    {/* Search sử dụng uncontrolled  */}
+                    <Col className={'col-12 col-md-5 mt-2'}>
+                        <Input type="text" id="search" name="search" innerRef={inputRef} />    
                     </Col>
+                    <Col className={'col-12 col-md-3 mt-2'}>
+                        <Button color='primary' onClick={handleSearch}>Tìm</Button>
+                    </Col>
+                    
+
                     <Col className="col-12 col-md-4">
                         <Button className="mt-2" color='success'
                                 onClick={()=>{setTogleModal(!togleModal)}}
