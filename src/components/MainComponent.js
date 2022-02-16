@@ -16,7 +16,8 @@ export default class MainComponent extends Component {
     this.state = {
       staffs: STAFFS,
       staffsPayroll: STAFFS,
-      departments: DEPARTMENTS
+      departments: DEPARTMENTS,
+      staffDepartments: DEPARTMENTS
     };
   }
 
@@ -35,7 +36,7 @@ export default class MainComponent extends Component {
           <div>
             <Header/>
             <Switch>
-              <Route exact path="/nhanvien"          component={()=> <StaffListComponent staffs={this.state.staffs} search={this.state.staffs}/>}/>
+              <Route exact path="/nhanvien"          component={()=> <StaffListComponent staffs={this.state.staffs} departments={this.state.staffDepartments}/>}/>
               <Route       path="/nhanvien/:staffId" component={StaffWithId} />
               <Route exact path="/phongban"          component={()=> <DepartmentsComponent departments={this.state.departments} />} />
               <Route exact path="/bangluong"         component={()=> <PayrollComponent  payroll={this.state.staffsPayroll}/>} />
