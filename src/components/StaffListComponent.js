@@ -1,7 +1,8 @@
 import React,{ useRef, useState} from "react";
-import {Card,CardImg,CardBody,CardTitle,Button,Col,Row,Container,Input,Modal,ModalBody,ModalHeader,Form,FormGroup,Label, ButtonGroup} from 'reactstrap';
+import {Card,CardImg,CardBody,CardTitle,Button,Col,Row,Container,Input,Modal,ModalBody,ModalHeader,Form,FormGroup,Label, ButtonGroup,FormFeedback} from 'reactstrap';
 import { Link } from 'react-router-dom';
 import '../App.css';
+import isEmpty from 'validator/lib/isEmpty';
 
 function RenderStaffs({staff,onClick}){
     return(
@@ -41,7 +42,6 @@ function StaffListComponent(props) {
         const [annualLeave, setAnnualLeave] = useState('0');
         const [overTime, setOverTime] =useState('0');
 
-
         const [newStaffs, setNewStaffs] = useState([]);
 
         const staffDepartment = props.departments.map((department)=>{
@@ -49,6 +49,8 @@ function StaffListComponent(props) {
                     <Department department={department}/>             
             );
         })
+
+        console.log("department >>",props.departments);
         
         const staffList = props.staffs
         //Lọc nhân viên có tên trùng với keyword
@@ -69,12 +71,12 @@ function StaffListComponent(props) {
             );
         });
 
-        console.log(props.staffs);
 
         const handleSearch = () =>{
            setSearchItem(inputRef.current.value);
         }
 
+        // Làm trống dữ liệu ô input trong form
         const clearInput = () =>{
             setName('');
             setDOB('');
@@ -85,34 +87,88 @@ function StaffListComponent(props) {
             setOverTime('0');
         }
 
-        const handleAdd= () =>{
-
-            let staffId = countStaffs + 1;
-
-            let newStaff = {   id:staffId,
-                            name: name,
-                            doB: dOB,
-                            salaryScale: salaryScale,
-                            startDate: startDate,
-                            department: department,
-                            annualLeave:annualLeave,
-                            overTime:overTime,
-                            image: '/assets/images/alberto.png'
-                        };
-                        props.staffs.push(newStaff);
-            setNewStaffs([...newStaffs, newStaff]);
-            setToggleModal(false);
-            clearInput();
+        const handleSubmitAdd= (event) =>{
+            event.preventDefault();
             
 
-            alert(JSON.stringify(newStaff));
-            console.log(newStaff);
+            if(error.isValid == false){
+                return
+            }else{
+                let staffId = countStaffs + 1;
+                let newStaff = {   id:staffId,
+                                name: name,
+                                doB: dOB,
+                                salaryScale: salaryScale,
+                                startDate: startDate,
+                                department: department,
+                                annualLeave:annualLeave,
+                                overTime:overTime,
+                                image: '/assets/images/alberto.png'
+                            };
+                            props.staffs.push(newStaff);
+                setNewStaffs([...newStaffs, newStaff]);
+                setToggleModal(false);
+                clearInput();
+            }
+                    
+        }
+
+        // Validate Form
+        const [touched, setTouched] = useState( {
+                                                    name: false,
+                                                    dOB: false,
+                                                    startDate: false } );
+
+        const handleBlur = (field)=>{
+            setTouched({...touched,[field]:true});
         }
 
 
+        const validate = (name,dOB,startDate) => {
+            const errors = {
+                name: '',
+                dOB: '',
+                startDate: '',
+                isValid: true
+            };
+
+            if(name==''){
+                errors.name = 'Vui lòng nhập';
+                errors.isValid=false;
+            }
+            else if(touched.name && name.length < 3){
+                errors.name = 'Yêu cầu nhập nhiều hơn 2 kí tự';
+                errors.isValid=false;
+
+            }
+            else if(touched.name && name.length > 30){
+                errors.isValid=false;
+                errors.name = 'Yêu cầu nhập ít hơn 30 kí tự';
+            }
+
+            if(dOB==''){
+                errors.isValid=false;
+                errors.dOB = 'Vui lòng nhập';
+            }
+
+            if(startDate==''){
+                errors.isValid=false;
+                errors.startDate = 'Vui lòng nhập';
+            }
+
+
+            return errors;
+        }
+
+
+
+        const error = validate(name,dOB,startDate);
+        console.log('show errors: ',error);
+
+
         return(
-            <Container className={"mb-3"} >
-                
+        
+            <Container>               
                <Row>
                <Col className="col-12">
                     <h3 className="mt-3">Nhân Viên</h3>
@@ -179,69 +235,107 @@ function StaffListComponent(props) {
                     <br/>
                    
                 </Row>
-                {<Modal isOpen={toggleModal} toggle={()=> setToggleModal(false)}>
-                    <ModalHeader toggle={()=> setToggleModal(false)}>Thêm nhân viên</ModalHeader>
-
+                {<Modal isOpen={ toggleModal } toggle={ ()=> setToggleModal(false) } centered >
+                    <ModalHeader toggle={ ()=> setToggleModal(false) } tag={"h4"}>Thêm nhân viên</ModalHeader>
                     <ModalBody>
-                        <Form>
+                        <Form onSubmit={handleSubmitAdd}>
                             <FormGroup>
-                                <Label htmlFor="staffName">Tên</Label>
-                                <Input  type="text" id="staffName" name="staffName" placeholder="Nhập họ và tên"
-                                        value={name} onChange={(e)=> setName(e.target.value)}
-
-                                />
-
-                                <Label htmlFor="dOB">Ngày sinh</Label>
-                                <Input  type="date" id="dOB" name="dOB"
-                                        value={dOB} onChange={(e)=> setDOB(e.target.value)}
-                                />
-
-                                <Label htmlFor="startDate">Ngày vào công ty</Label>
-                                <Input  type="date" id="startDate" name="startDate"
-                                        value={startDate} onChange={(e)=> setStartDate(e.target.value)}
-                                />
-
-                                <Label htmlFor="department">Phòng ban</Label>
-                                <select className='form-control' id="department" name="department"
-                                         value={department} onChange={(e)=> setDepartment(e.target.value)} >
-                                             <option></option>
-                                            {staffDepartment} 
-                                </select>
-                                <br/>
-                                {/* <Input  type="text" id="department" name="department" placeholder="Nhập tên phòng ban"
-                                        value={department} onChange={(e)=> setDepartment(e.target.value)}
-                                /> */}
-
-                                
-
-                                <Label htmlFor="salaryScale">Hệ số lương</Label>
-                                <Input  type="text" id="salaryScale" name="salaryScale"
-                                        value={salaryScale} onChange={(e)=> setSalaryScale(e.target.value)}
-                                />
-
-                                <Label htmlFor="annualLeave">Số ngày nghỉ còn lại</Label>
-                                <Input  type="text" id="annualLeave" name="annualLeave"
-                                        value={annualLeave} onChange={(e)=> setAnnualLeave(e.target.value)}
-                                />
-
-                                <Label htmlFor="overTime">Số ngày đã làm thêm</Label>
-                                <Input  type="text" id="overTime" name="overTime"
-                                        value={overTime} onChange={(e)=> setOverTime(e.target.value)}
-                                />
-
-
-                                
-
-                                
-                                <Button className="mt-2" color="primary" onClick={() => handleAdd() }>Thêm</Button>
+                                <Row>
+                                    <Col md={4}>
+                                        <Label htmlFor="staffName">Tên</Label>
+                                    </Col>
+                                    <Col md={8}>
+                                        <Input  type="text" id="staffName" name="staffName" placeholder="Nhập họ và tên" value={ name } onChange={ (e)=> setName(e.target.value) }
+                                                valid={error.name === ''}
+                                                invalid={error.name !== ''}
+                                                onBlur={()=>{handleBlur('name')}}/>
+                                                <FormFeedback>{error.name}</FormFeedback>
+                                    </Col>
+                                </Row>
                             </FormGroup>
+                            <FormGroup>
+                                <Row>
+                                    <Col md={4}>
+                                        <Label htmlFor="dOB">Ngày sinh</Label>
+                                    </Col>
+                                    <Col md={8}>
+                                        <Input  type="date" id="dOB" name="dOB" value={ dOB } onChange={ (e)=> setDOB(e.target.value) }
+                                                valid={error.dOB === ''}
+                                                invalid={error.dOB !== ''}
+                                                onBlur={()=>{handleBlur('dOB')}}/>
+                                                <FormFeedback>{error.dOB}</FormFeedback>
+                                    </Col>
+                                </Row>
+                            </FormGroup>
+                            <FormGroup>
+                                <Row>
+                                    <Col md={4}>
+                                        <Label htmlFor="startDate">Ngày vào công ty</Label>
+                                    </Col>
+                                    <Col md={8}>
+                                        <Input  type="date" id="startDate" name="startDate" value={ startDate } onChange={ (e)=> setStartDate(e.target.value) } 
+                                                valid={error.startDate === ''}
+                                                invalid={error.startDate !== ''}
+                                                onBlur={()=>{handleBlur('startDate')}}/>
+                                                <FormFeedback>{error.startDate}</FormFeedback>
+                                    </Col>
+                                </Row>
+                            </FormGroup>
+                            <FormGroup>
+                                <Row>
+                                    <Col md={4}>
+                                        <Label htmlFor="department">Phòng ban</Label>
+                                    </Col>
+                                    <Col md={8}>
+                                        <select className='form-control' id="department" name="department" value={ department } onChange={ (e)=> setDepartment(e.target.value) } >
+                                                    <option></option>
+                                                    { staffDepartment } 
+                                        </select>
+                                    </Col>
+                                </Row>
+                            </FormGroup>
+                            <FormGroup>
+                                <Row>
+                                    <Col md={4}>
+                                        <Label htmlFor="salaryScale">Hệ số lương</Label>
+                                    </Col>
+                                    <Col md={8}>
+                                        <Input  type="text" id="salaryScale" name="salaryScale" value={ salaryScale } onChange={ (e)=> setSalaryScale(e.target.value) } />
+                                    </Col>
+                                </Row>
+                            </FormGroup>
+                            <FormGroup>
+                                <Row>
+                                    <Col md={4}>
+                                        <Label htmlFor="annualLeave">Số ngày nghỉ còn lại</Label>
+                                    </Col>
+                                    <Col md={8}>
+                                        <Input  type="text" id="annualLeave" name="annualLeave" value={ annualLeave } onChange={ (e)=> setAnnualLeave(e.target.value) } />
+                                    </Col>
+                                </Row>
+                            </FormGroup>
+                            <FormGroup>
+                                <Row>
+                                    <Col md={4}>
+                                        <Label htmlFor="overTime">Số ngày đã làm thêm</Label>
+                                    </Col>
+                                    <Col md={8}>
+                                        <Input  type="text" id="overTime" name="overTime" value={ overTime } onChange={ (e)=> setOverTime(e.target.value) } />
+                                    </Col>
+                                </Row>
+                            </FormGroup>
+                            <FormGroup>
+                                <Row>
+                                    <Col >
+                                    <Button color="success" outline block type="submit">Thêm</Button>
+                                    </Col>
+                                </Row>
+                            </FormGroup>    
                         </Form>
                     </ModalBody>
                    
                 </Modal>              
-                }
-                 
-                
+                }   
             </Container>
         );
     
