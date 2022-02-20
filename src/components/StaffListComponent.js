@@ -17,9 +17,10 @@ function RenderStaffs({staff,onClick}){
     );
 }
 
-function Department({department}) {
+function Department({department,index}) {
+    
     return(
-        <option>{department.name}</option>
+        <option value={index}>{department.name}</option>
     );
 }
 
@@ -38,20 +39,18 @@ function StaffListComponent(props) {
         const [dOB, setDOB] = useState('');
         const [salaryScale, setSalaryScale] = useState('1');
         const [startDate, setStartDate] = useState('');
-        const [department, setDepartment] = useState('');
+        const [department, setDepartment] = useState('0');
         const [annualLeave, setAnnualLeave] = useState('0');
         const [overTime, setOverTime] =useState('0');
 
         const [newStaffs, setNewStaffs] = useState([]);
 
-        const staffDepartment = props.departments.map((department)=>{
+        const staffDepartment = props.departments.map((department,index)=>{
             return(
-                    <Department department={department}/>             
-            );
-        })
-
-        console.log("department >>",props.departments);
-        
+                    <Department department={department} index={index}/>             
+            );})
+        console.log("department >>",props.departments[1]);
+        console.log("staffList >>",props.staffs);  
         const staffList = props.staffs
         //Lọc nhân viên có tên trùng với keyword
         .filter((val) => {
@@ -71,11 +70,9 @@ function StaffListComponent(props) {
             );
         });
 
-
         const handleSearch = () =>{
            setSearchItem(inputRef.current.value);
         }
-
         // Làm trống dữ liệu ô input trong form
         const clearInput = () =>{
             setName('');
@@ -100,7 +97,7 @@ function StaffListComponent(props) {
                                 doB: dOB,
                                 salaryScale: salaryScale,
                                 startDate: startDate,
-                                department: department,
+                                department: props.departments[department],
                                 annualLeave:annualLeave,
                                 overTime:overTime,
                                 image: '/assets/images/alberto.png'
@@ -112,7 +109,6 @@ function StaffListComponent(props) {
             }
                     
         }
-
         // Validate Form
         const [touched, setTouched] = useState( {
                                                     name: false,
@@ -122,8 +118,6 @@ function StaffListComponent(props) {
         const handleBlur = (field)=>{
             setTouched({...touched,[field]:true});
         }
-
-
         const validate = (name,dOB,startDate) => {
             const errors = {
                 name: '',
@@ -159,12 +153,10 @@ function StaffListComponent(props) {
 
             return errors;
         }
-
-
-
         const error = validate(name,dOB,startDate);
         console.log('show errors: ',error);
 
+        
 
         return(
         
@@ -239,6 +231,7 @@ function StaffListComponent(props) {
                     <ModalHeader toggle={ ()=> setToggleModal(false) } tag={"h4"}>Thêm nhân viên</ModalHeader>
                     <ModalBody>
                         <Form onSubmit={handleSubmitAdd}>
+                            {/* Họ và tên */}
                             <FormGroup>
                                 <Row>
                                     <Col md={4}>
@@ -253,6 +246,7 @@ function StaffListComponent(props) {
                                     </Col>
                                 </Row>
                             </FormGroup>
+                            {/* Ngày sinh */}
                             <FormGroup>
                                 <Row>
                                     <Col md={4}>
@@ -267,6 +261,7 @@ function StaffListComponent(props) {
                                     </Col>
                                 </Row>
                             </FormGroup>
+                            {/* Ngày vào công ty */}
                             <FormGroup>
                                 <Row>
                                     <Col md={4}>
@@ -281,6 +276,7 @@ function StaffListComponent(props) {
                                     </Col>
                                 </Row>
                             </FormGroup>
+                            {/* Phòng ban */}
                             <FormGroup>
                                 <Row>
                                     <Col md={4}>
@@ -288,22 +284,23 @@ function StaffListComponent(props) {
                                     </Col>
                                     <Col md={8}>
                                         <select className='form-control' id="department" name="department" value={ department } onChange={ (e)=> setDepartment(e.target.value) } >
-                                                    <option></option>
-                                                    { staffDepartment } 
+                                            { staffDepartment } 
                                         </select>
                                     </Col>
                                 </Row>
                             </FormGroup>
+                            {/* Hệ số lương */}
                             <FormGroup>
                                 <Row>
                                     <Col md={4}>
                                         <Label htmlFor="salaryScale">Hệ số lương</Label>
                                     </Col>
                                     <Col md={8}>
-                                        <Input  type="text" id="salaryScale" name="salaryScale" value={ salaryScale } onChange={ (e)=> setSalaryScale(e.target.value) } />
+                                        <Input  type="text" id="salaryScale" name="salaryScale" placeholder="1 -> 3" value={ salaryScale } onChange={ (e)=> setSalaryScale(e.target.value) } />
                                     </Col>
                                 </Row>
                             </FormGroup>
+                            {/* Số ngày nghỉ */}
                             <FormGroup>
                                 <Row>
                                     <Col md={4}>
@@ -314,6 +311,7 @@ function StaffListComponent(props) {
                                     </Col>
                                 </Row>
                             </FormGroup>
+                            {/* Số ngày đã làm thêm */}
                             <FormGroup>
                                 <Row>
                                     <Col md={4}>
@@ -324,6 +322,7 @@ function StaffListComponent(props) {
                                     </Col>
                                 </Row>
                             </FormGroup>
+                            {/* Button submit */}
                             <FormGroup>
                                 <Row>
                                     <Col >
