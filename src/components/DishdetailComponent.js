@@ -1,8 +1,13 @@
 import React,{useState} from 'react';
-import { Card, CardImg, CardText, CardBody, CardTitle,Breadcrumb,BreadcrumbItem,Modal, ModalHeader, ModalBody, Form, FormGroup, Label, Input, Button } from 'reactstrap';
+import { 
+    Card, CardImg, CardText, CardBody, CardTitle,
+    Breadcrumb,BreadcrumbItem,
+    Modal, ModalHeader, ModalBody, Label, Button 
+        } from 'reactstrap';
 import dateFormat from 'dateformat';
 import { Link } from 'react-router-dom';
 import { Control,LocalForm,Errors} from 'react-redux-form';
+import { Loading } from './LoadingComponent';
 
 
 
@@ -122,7 +127,24 @@ import { Control,LocalForm,Errors} from 'react-redux-form';
         
         let dish;
         // console.log(this.props.dish);
-        console.log('Dishdetail Component render invoked');
+
+        if(props.isLoading) {
+            return(
+                <div className='container'>
+                    <div className='row'>
+                        <Loading />
+                    </div>
+                </div>
+            );
+        }else if(props.errMess) {
+            return(
+                <div className='container'>
+                    <div className='row'>
+                        <h4>{props.errMess}</h4>
+                    </div>
+                </div>
+            );
+        }
 
         if (props.dish) {
           
