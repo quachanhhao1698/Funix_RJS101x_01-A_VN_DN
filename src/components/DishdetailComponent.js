@@ -127,7 +127,7 @@ import { baseUrl } from '../shared/baseUrl';
     function DishDetail(props){
         
         
-        let dish;
+        let dishes;
 
         console.log(props);
 
@@ -151,7 +151,7 @@ import { baseUrl } from '../shared/baseUrl';
 
         if (props.dish) {
           
-            dish = (
+            dishes = (
                 <div className="row">
                     <RenderDish dish={props.dish} />
                     <RenderComments comments={props.comments}
@@ -161,10 +161,8 @@ import { baseUrl } from '../shared/baseUrl';
             )
           
         } else {
-            dish = <div></div>
+            dishes= <div></div>
         }
-
-
 
         return (
             <div className="container">
@@ -179,7 +177,7 @@ import { baseUrl } from '../shared/baseUrl';
                     </div>
                 </div>
 
-                {dish}
+                {dishes}
 
                 
 
