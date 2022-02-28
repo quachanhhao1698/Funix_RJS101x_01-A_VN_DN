@@ -9,21 +9,25 @@ import { Link } from 'react-router-dom';
 import { Control,LocalForm,Errors} from 'react-redux-form';
 import { Loading } from './LoadingComponent';
 import { baseUrl } from '../shared/baseUrl';
-
-
+import { FadeTransform, Fade, Stagger } from 'react-animation-components';
 
 
     function RenderDish({dish}) {
         if (dish != null)
             return (
-              <div className="col-12 col-md-6 mt-4">
-                <Card>
-                    <CardImg width="100%" src={baseUrl + dish.image} alt={dish.name} />
-                    <CardBody>
-                        <CardTitle>{dish.name}</CardTitle>
-                        <CardText>{dish.description}</CardText>
-                    </CardBody>
-                </Card>
+                <div className="col-12 col-md-6 mt-4">
+                    <FadeTransform in
+                            transformProps={{
+                                exitTransform: 'scale(0.5) translateY(-50%)'
+                            }}>
+                        <Card>
+                            <CardImg width="100%" src={baseUrl + dish.image} alt={dish.name} />
+                            <CardBody>
+                                <CardTitle>{dish.name}</CardTitle>
+                                <CardText>{dish.description}</CardText>
+                            </CardBody>
+                        </Card>
+                    </FadeTransform>
               </div>
 
             );
@@ -37,15 +41,17 @@ import { baseUrl } from '../shared/baseUrl';
             return (
                 <div  className="col-12 col-md-6 mt-4">
                     <h4>Comments</h4>
-                    {comments.map(comment => (
-                        <ul key={comment.id} className="list-unstyled">
-                            <li>
-                                <p>{comment.comment}</p>
-                                <p>---{comment.author} , {dateFormat(comment.date,"dd/mm/yyyy") }</p>
-                            </li>
-                        </ul>
-                    )
-                    )}
+                    <Stagger in>
+                        {comments.map(comment => (
+                            <ul key={comment.id} className="list-unstyled">
+                                <li>
+                                    <p>{comment.comment}</p>
+                                    <p>---{comment.author} , {dateFormat(comment.date,"dd/mm/yyyy") }</p>
+                                </li>
+                            </ul>
+                        )
+                        )}
+                    </Stagger>
 
                     <CommentForm dishId={dishId} postComment={postComment}/>
                     
@@ -129,7 +135,7 @@ import { baseUrl } from '../shared/baseUrl';
         
         let dishes;
 
-        console.log(props);
+        // console.log("name" ,props.dish.name);
 
         if(props.isLoading) {
             return(
@@ -149,44 +155,38 @@ import { baseUrl } from '../shared/baseUrl';
             );
         }
 
-        if (props.dish) {
+        if (props.dish &&  props.dish.name) {
           
-            dishes = (
-                <div className="row">
-                    <RenderDish dish={props.dish} />
-                    <RenderComments comments={props.comments}
-                                    postComment={props.postComment}
-                                    dishId={props.dish.id} />
-                </div>
-            )
-          
-        } else {
-            dishes= <div></div>
-        }
-
-        return (
-            <div className="container">
-                <div className="row">
-                    <Breadcrumb>
-                        <BreadcrumbItem><Link to='/menu'>Menu</Link></BreadcrumbItem>
-                        <BreadcrumbItem active>{props.dish.name}</BreadcrumbItem>
-                    </Breadcrumb>
-                    <div className="col-12">
-                        <h3>{props.dish.name}</h3>
-                        <hr/>
+            return (
+                <div className="container">
+                    <div className="row">
+                        <Breadcrumb>
+                            <BreadcrumbItem><Link to='/menu'>Menu</Link></BreadcrumbItem>
+                            <BreadcrumbItem active>{props.dish.name}</BreadcrumbItem>
+                        </Breadcrumb>
+                        <div className="col-12">
+                            <h3>{props.dish.name}</h3>
+                            <hr/>
+                        </div>
+                    </div>
+    
+                    <div className="row">
+                        <RenderDish dish={props.dish} />
+                        <RenderComments comments={props.comments}
+                                        postComment={props.postComment}
+                                        dishId={props.dish.id} />
                     </div>
                 </div>
-
-                {dishes}
-
+            );
+          
+        } else {
+            return (
                 
+                <div></div>
+            );
+        }
 
-                
-
-                
-            </div>
-        );
-
+    
     }
 
 export default DishDetail;
