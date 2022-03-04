@@ -1,6 +1,9 @@
 import React from 'react';
 import {Card,CardTitle,CardText,Col,Breadcrumb,BreadcrumbItem} from 'reactstrap';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import { LoadingComponent} from './LoadingComponent';
+import { FadeTransform } from 'react-animation-components';
+
 
 
 function RenderListPayrollOfStaffs({staff}){
@@ -10,19 +13,24 @@ function RenderListPayrollOfStaffs({staff}){
     const salary = (parseFloat(staff.salaryScale) * basicSalary) + (parseFloat(staff.overTime) * overTimeSalary);
 
     return(
-
+    <FadeTransform in transformProps={{
+            exitTransform: 'scale(0.5) translateY(-50%)'
+        }}>
         <Card key={staff.id}>
             <CardTitle>{staff.name}</CardTitle>
             <CardText>Mã nhân viên: {staff.id}</CardText>
             <CardText>Hệ số lương: {staff.salaryScale}</CardText>
             <CardText>Số giờ làm thêm: {staff.overTime}</CardText>
-            <input type={"text"} disabled value={"Lương: " + salary.toFixed(1)}/>
+            <input type={"text"} disabled value={"Lương: " + salary.toFixed(0)}/>  
 
         </Card>
+    </FadeTransform>
     );
 }
 
 export default function PayrollComponent(props) {
+    console.log( "payroll : ",props.payroll);
+
     const payrollOfStaffs = props.payroll.map((payroll) =>{
 
         return(
@@ -32,6 +40,26 @@ export default function PayrollComponent(props) {
         );
 
     });
+
+
+    if(props.salaryLoading){
+        return(
+            <div className="container">
+                <div className="row">
+                    <LoadingComponent/>
+                </div>
+            </div>
+        );
+    }
+    else if(props.salaryErrMess){
+        return(
+            <div className="container">
+                <div className="row">
+                     <h4>{props.errMess}</h4>
+                </div>
+            </div>
+        );
+    }
     
   return(
       <div className='container mt-3'>
