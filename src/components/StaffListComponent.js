@@ -57,9 +57,11 @@ function StaffListComponent(props) {
                     <Department department={department} index={index}/>             
             );
         })
-        console.log("department >>",props.departments);
+
+        // console.log("department >>",props.departments);
         
-        console.log("staffList >>",props.staffs);  
+        // console.log("staffList >>",props.staffs);  
+        
         const staffList = props.staffs
         //Lọc nhân viên có tên trùng với keyword
         .filter((val) => {
@@ -133,6 +135,7 @@ function StaffListComponent(props) {
         const minLength = (len) => (val) => val && (val.length >= len);
         
 
+        // console.log('STAFFS PROPS : ',props);
         
         if(props.staffsLoading){
             return(
@@ -147,12 +150,12 @@ function StaffListComponent(props) {
             return(
                 <div className="container">
                     <div className="row">
-                         <h4>{props.errMess}</h4>
+                         <h4>{props.staffsErrMess}</h4>
                     </div>
                 </div>
             );
         }
-         if(staffList != null){
+         else if(staffList != null){
             return(
                 
                 <Container>               

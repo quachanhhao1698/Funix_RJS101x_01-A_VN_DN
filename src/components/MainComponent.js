@@ -65,11 +65,15 @@ class MainComponent extends Component {
               <CSSTransition key={this.props.location.key} classNames="page" timeout={300}>
               <Switch location={this.props.location}>
                 <Route exact path="/staffs"
-                  component={()=> <StaffListComponent staffs={this.props.staffs.staffs}
-                  departments={this.props.departments.departments}
-                  salary={this.props.staffsSalary.staffsSalary}
-                  staffsLoading={this.props.staffs.isLoading}
-                  staffsErrMess={this.props.staffs.errMess}/> }/>
+                  component={
+                    ()=> <StaffListComponent
+                            staffs={this.props.staffs.staffs}
+                            departments={this.props.departments.departments}
+                            salary={this.props.staffsSalary.staffsSalary}
+                            staffsLoading={this.props.staffs.isLoading}
+                            staffsErrMess={this.props.staffs.errMess} 
+                          /> 
+                  }/>
 
                 <Route path="/staffs/:staffId" component={StaffWithId} />
 

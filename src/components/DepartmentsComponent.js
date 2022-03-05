@@ -46,26 +46,29 @@ else if(props.departmentsErrMess){
     return(
         <div className="container">
             <div className="row">
-                 <h4>{props.errMess}</h4>
+                 <h4>{props.departmentsErrMess}</h4>
             </div>
         </div>
     );
 }
- return(
-   <div className='container mt-3 '>
-      <div className="col-12">
-        <h3>Phòng Ban</h3>
-        <hr/>
+else if(props.departments != null){
+  return(
+    <div className='container mt-3 '>
+       <div className="col-12">
+         <h3>Phòng Ban</h3>
+         <hr/>
+       </div>
+      <div className="row">
+         <Breadcrumb>
+           <BreadcrumbItem><Link to='/nhanvien'>Nhân viên</Link></BreadcrumbItem>
+           <BreadcrumbItem active>Phòng Ban</BreadcrumbItem>
+         </Breadcrumb>
+       </div>
+      <div className='row mt-3 mb-3 depart'>
+       {departmentList}
       </div>
-     <div className="row">
-        <Breadcrumb>
-          <BreadcrumbItem><Link to='/nhanvien'>Nhân viên</Link></BreadcrumbItem>
-          <BreadcrumbItem active>Phòng Ban</BreadcrumbItem>
-        </Breadcrumb>
-      </div>
-     <div className='row mt-3 mb-3 depart'>
-      {departmentList}
-     </div>
-   </div>
- );
+    </div>
+  );
+}
+else return (<div></div>)
 }
