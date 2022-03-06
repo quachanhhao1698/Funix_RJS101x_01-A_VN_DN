@@ -65,7 +65,7 @@ export const postStaff = (id, name, doB, salaryScale, startDate, department,anua
           })
         .then(response => response.json())
         .then(response => dispatch(addStaffs(response)))
-        .catch(error =>  { console.log('post comments', error.message); alert('Your comment could not be posted\nError: '+error.message); });
+        .catch(error =>  { console.log('post staff', error.message); alert('Your staff could not be posted\nError: '+error.message); });
 
 };
 
@@ -96,7 +96,7 @@ export const deleteStaff =(id) => (dispatch) => {
           })
         .then(response => response.json())
         .then(response => dispatch(addStaffs(response)))
-        .catch(error =>  { console.log('post comments', error.message); alert('Your comment could not be posted\nError: '+error.message); });
+        .catch(error =>  { console.log('post staff', error.message); alert('Your staff could not be delete\nError: '+error.message); });
 }
 
 // ________________________________________________________________
