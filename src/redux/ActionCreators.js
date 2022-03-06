@@ -1,7 +1,6 @@
 import * as ActionTypes from './ActionTypes';
 // import { STAFFS } from '../shared/staffs';
 import {baseUrl} from '../shared/baseUrl'
-import { type } from 'jquery';
 
 // STAFFS
 export const fetchStaffs = () => (dispatch) => {
@@ -29,7 +28,7 @@ export const addStaffs = (staffs) => ({
 
 // ADD NEW STAFFS
 
-export const postStaff = (id, name, doB, salaryScale, startDate, department,anualLeave,overTime,image,salary) => (dispatch) =>{
+export const postStaff = (id, name, doB, salaryScale, startDate, department,annualLeave,overTime,image,salary) => (dispatch) =>{
       const newStaff= {
             id: id,
             name: name,
@@ -37,7 +36,7 @@ export const postStaff = (id, name, doB, salaryScale, startDate, department,anua
             salaryScale: salaryScale,
             startDate: startDate,
             departmentId: department,
-            anualLeave: anualLeave,
+            annualLeave: annualLeave,
             overTime: overTime,
             image: image,
             salary:salary

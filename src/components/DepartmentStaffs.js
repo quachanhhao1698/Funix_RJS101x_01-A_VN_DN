@@ -2,11 +2,16 @@ import React from "react";
 import { Card, CardImg, Breadcrumb, BreadcrumbItem,CardBody,CardTitle,ButtonGroup,Button } from "reactstrap";
 import { Link } from "react-router-dom";
 
-const RenderStaffItem = ({staff,deleteStaff}) => {
+const RenderStaffItem = ({staff,deleteStaff,department}) => {
     const handleDelete =(id) =>{
         if(window.confirm("Xác nhận xóa !")){
 
             deleteStaff(id)
+            department.map(depart => {
+                if(staff.departmentId == depart.id){
+                    depart.numberOfStaff--;
+                }
+            });
         }
     }
     return (
@@ -29,7 +34,7 @@ const RenderStaffItem = ({staff,deleteStaff}) => {
 export  const DepartmentStaffs = (props) => {
     const staffs = props.staff.map((val) => (
         <div className="col-12 col-sm-4 col-md-2 mt-3 mb-3" key={val.id}>
-            <RenderStaffItem staff={val} deleteStaff={props.deleteStaff}/>
+            <RenderStaffItem staff={val} deleteStaff={props.deleteStaff} department={props.departments}/>
         </div>
     ));
 

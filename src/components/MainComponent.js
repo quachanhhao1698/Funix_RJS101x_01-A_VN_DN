@@ -23,7 +23,7 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  postStaff: (id, name, doB, salaryScale, startDate, departmentId,anualLeave,overTime,image,salary)=>{dispatch(postStaff(id, name, doB, salaryScale, startDate, departmentId,anualLeave,overTime,image,salary))},
+  postStaff: (id, name, doB, salaryScale, startDate, departmentId,annualLeave,overTime,image,salary)=>{dispatch(postStaff(id, name, doB, salaryScale, startDate, departmentId,annualLeave,overTime,image,salary))},
   deleteStaff:(id)=>{dispatch(deleteStaff(id))},
   fetchStaffs: ()=> {dispatch(fetchStaffs())},
   fetchDepartments: ()=>{dispatch(fetchDepartments())},
@@ -59,6 +59,8 @@ class MainComponent extends Component {
               dept={this.props.departments.departments.filter((dept) => dept.id === match.params.deptId)[0]}
               staff={this.props.staffs.staffs.filter((staff) => staff.departmentId === match.params.deptId)}
               deleteStaff={this.props.deleteStaff}
+              departments={this.props.departments.departments}
+
 
       />)}
 

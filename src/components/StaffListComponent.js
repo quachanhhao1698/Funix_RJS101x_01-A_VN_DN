@@ -8,13 +8,18 @@ import { FadeTransform } from 'react-animation-components';
 
 
 
-function RenderStaffs({staff,deleteStaff}){
+function RenderStaffs({staff,deleteStaff,department}){
 
     
     const handleDelete =(id) =>{
         if(window.confirm("Xác nhận xóa !")){
 
             deleteStaff(id)
+            department.map(depart => {
+                if(staff.departmentId == depart.id){
+                    depart.numberOfStaff--;
+                }
+            });
         }
     }
 
@@ -94,7 +99,7 @@ function StaffListComponent(props) {
                 
                 <Col key={staffs.id} xs={col || "6"} md={col || "4"} lg={col || "2"} className={"mt-3"} >
                         <RenderStaffs staff={staffs} onclick={props.onClick} isLoading={props.staffsLoading}
-                        errMess={props.staffErrMess} deleteStaff={props.deleteStaff} />
+                        errMess={props.staffErrMess} deleteStaff={props.deleteStaff} department={props.departments} />
                 </Col>
             );
         });
