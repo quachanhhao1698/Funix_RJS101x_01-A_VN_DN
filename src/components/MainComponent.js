@@ -10,7 +10,7 @@ import StaffDetailComponent from './StaffDetailComponent';
 import DepartmentsComponent from './DepartmentsComponent';
 import { DepartmentStaffs } from './DepartmentStaffs';
 import PayrollComponent from './PayrollComponent';
-import { fetchStaffs ,fetchDepartments, fetchStaffsSalary} from "../redux/ActionCreators";
+import { deleteStaff,postStaff,fetchStaffs ,fetchDepartments, fetchStaffsSalary} from "../redux/ActionCreators";
 
 
 
@@ -23,6 +23,8 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
+  postStaff: (id, name, doB, salaryScale, startDate, departmentId,anualLeave,overTime,image,salary)=>{dispatch(postStaff(id, name, doB, salaryScale, startDate, departmentId,anualLeave,overTime,image,salary))},
+  deleteStaff:(id)=>{dispatch(deleteStaff(id))},
   fetchStaffs: ()=> {dispatch(fetchStaffs())},
   fetchDepartments: ()=>{dispatch(fetchDepartments())},
   fetchStaffsSalary: ()=>{dispatch(fetchStaffsSalary())}
@@ -56,6 +58,8 @@ class MainComponent extends Component {
           <DepartmentStaffs
               dept={this.props.departments.departments.filter((dept) => dept.id === match.params.deptId)[0]}
               staff={this.props.staffs.staffs.filter((staff) => staff.departmentId === match.params.deptId)}
+              deleteStaff={this.props.deleteStaff}
+
       />)}
 
       return(
@@ -65,15 +69,13 @@ class MainComponent extends Component {
               <CSSTransition key={this.props.location.key} classNames="page" timeout={300}>
               <Switch location={this.props.location}>
                 <Route exact path="/staffs"
-                  component={
-                    ()=> <StaffListComponent
-                            staffs={this.props.staffs.staffs}
-                            departments={this.props.departments.departments}
-                            salary={this.props.staffsSalary.staffsSalary}
-                            staffsLoading={this.props.staffs.isLoading}
-                            staffsErrMess={this.props.staffs.errMess} 
-                          /> 
-                  }/>
+                  component={()=> <StaffListComponent staffs={this.props.staffs.staffs}
+                  departments={this.props.departments.departments}
+                  salary={this.props.staffsSalary.staffsSalary}
+                  addStaff={this.props.postStaff}
+                  deleteStaff={this.props.deleteStaff}
+                  staffsLoading={this.props.staffs.isLoading}
+                  staffsErrMess={this.props.staffs.errMess}/> }/>
 
                 <Route path="/staffs/:staffId" component={StaffWithId} />
 

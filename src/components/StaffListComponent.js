@@ -7,12 +7,29 @@ import {LoadingComponent} from './LoadingComponent';
 import { FadeTransform } from 'react-animation-components';
 
 
-function RenderStaffs({staff}){
+
+function RenderStaffs({staff,deleteStaff}){
+
+    
+    const handleDelete =(id) =>{
+        if(window.confirm("Xác nhận xóa !")){
+
+            deleteStaff(id)
+        }
+    }
+
+    
     return(
         <FadeTransform in transformProps={{
             exitTransform: 'scale(0.5) translateY(-50%)'
         }}>
             <Card className={"mt-3 card-nv"}>
+                
+                    <ButtonGroup className={"mb-1"}>
+                    <Button color='danger'  className="fa fa-trash" onClick={()=>{handleDelete(staff.id)}}></Button>
+                    </ButtonGroup>
+
+                
                 <Link to={`/staffs/${staff.id}`}>
                     <CardImg className={"cardImg-nv"} width="100%" src={staff.image} alt={staff.name} />
                     <CardBody width="100%" className={"cardBody-nv"}>
@@ -57,11 +74,9 @@ function StaffListComponent(props) {
                     <Department department={department} index={index}/>             
             );
         })
-
-        // console.log("department >>",props.departments);
+        console.log("department >>",props.departments);
         
         // console.log("staffList >>",props.staffs);  
-        
         const staffList = props.staffs
         //Lọc nhân viên có tên trùng với keyword
         .filter((val) => {
@@ -79,7 +94,7 @@ function StaffListComponent(props) {
                 
                 <Col key={staffs.id} xs={col || "6"} md={col || "4"} lg={col || "2"} className={"mt-3"} >
                         <RenderStaffs staff={staffs} onclick={props.onClick} isLoading={props.staffsLoading}
-                        errMess={props.staffErrMess} />
+                        errMess={props.staffErrMess} deleteStaff={props.deleteStaff} />
                 </Col>
             );
         });
@@ -98,44 +113,60 @@ function StaffListComponent(props) {
             setOverTime('0');
         }
         // Thêm nhân viên
-        const handleSubmitAdd= () =>{
-            let staffId = props.staffs.length;
-            props.staffs.map(staff => {
-                if(staff.id > staffId){
-                    staffId = staff.id +1;
-                }
-            })
-            let newStaff = {    id:staffId,
-                                name: name,
-                                doB: dOB,
-                                salaryScale: salaryScale,
-                                startDate: startDate,
-                                departmentId: department,
-                                annualLeave:annualLeave,
-                                overTime:overTime,
-                                image: '/asset/images/alberto.png' };
+        // const handleSubmitAdd= () =>{
+        //     let staffId = countStaffs + 1;
+        //     let newStaff = {    id:staffId,
+        //                         name: name,
+        //                         doB: dOB,
+        //                         salaryScale: salaryScale,
+        //                         startDate: startDate,
+        //                         departmentId: department,
+        //                         annualLeave:annualLeave,
+        //                         overTime:overTime,
+        //                         image: '/asset/images/alberto.png' };
         
-            props.departments.map(depart => {
-                if(department == depart.id){
-                    depart.numberOfStaff++;
-                }
-            })
+        //     props.departments.map(depart => {
+        //         if(department == depart.id){
+        //             depart.numberOfStaff++
+        //         }
+        //     })
 
-            props.staffs.push(newStaff);
-            props.salary.push(newStaff);
-            setNewStaffs([...newStaffs, newStaff]);
-            setToggleModal(false);
-            clearInput();
+        //     props.staffs.push(newStaff);
+        //     props.salary.push(newStaff)
+        //     setNewStaffs([...newStaffs, newStaff]);
+        //     setToggleModal(false);
+        //     clearInput();
             
                     
+        // }
+
+        // Sử dụng post
+        const handleSubmitAdd = () =>{
+            let staffId = countStaffs + 1;
+            const basicSalary = 3000000;
+            const overTimeSalary = 200000;
+            const salary = (parseFloat(salaryScale) * basicSalary) + (parseFloat(overTime) * overTimeSalary);
+            props.addStaff(staffId,name,dOB,salaryScale,startDate,department,annualLeave,overTime,'/asset/images/alberto.png',salary);
+            props.departments.map(depart => {
+                        if(department == depart.id){
+                            depart.numberOfStaff++
+                        }
+                    });
+
+            setToggleModal(false);
+            clearInput();
         }
+
+        const handleEdit = (id)=>{
+            alert("id: " , id)
+        }
+        
         // Validate Form
         const required = (val) => val && val.length;
         const maxLength = (len) => (val) => !(val) || (val.length <= len);
         const minLength = (len) => (val) => val && (val.length >= len);
         
 
-        // console.log('STAFFS PROPS : ',props);
         
         if(props.staffsLoading){
             return(
@@ -150,12 +181,12 @@ function StaffListComponent(props) {
             return(
                 <div className="container">
                     <div className="row">
-                         <h4>{props.staffsErrMess}</h4>
+                         <h4>{props.errMess}</h4>
                     </div>
                 </div>
             );
         }
-         else if(staffList != null){
+         if(staffList != null){
             return(
                 
                 <Container>               

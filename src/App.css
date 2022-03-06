@@ -122,7 +122,7 @@
     }
     .card-nv:hover.card-nv {
         box-shadow: 10px 10px 15px yellow;
-
+        transition: all .3s ease;
     }
     .cardTitle-nv{
         font-size: 16px;
@@ -168,6 +168,7 @@
         box-sizing: border-box ;
     }
     .card-depart:hover.card-depart{
+        transition: all .3s ease;
         box-shadow: 10px 10px 15px yellow;
         
     }
@@ -189,6 +190,8 @@
     }
     .nav-item:hover span {
         color: yellow;
+        transition: all .3s ease-in-out;
+
     }
 
     .home{

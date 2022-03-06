@@ -1,19 +1,27 @@
 import React from "react";
-import { Card, CardImg, Breadcrumb, BreadcrumbItem,CardBody,CardTitle } from "reactstrap";
+import { Card, CardImg, Breadcrumb, BreadcrumbItem,CardBody,CardTitle,ButtonGroup,Button } from "reactstrap";
 import { Link } from "react-router-dom";
 
-const RenderStaffItem = ({staff}) => {
+const RenderStaffItem = ({staff,deleteStaff}) => {
+    const handleDelete =(id) =>{
+        if(window.confirm("Xác nhận xóa !")){
+
+            deleteStaff(id)
+        }
+    }
     return (
-       
             
-<Card className={"mt-3 card-nv"}>
-<Link to={`/staffs/${staff.id}`}>
-    <CardImg className={"cardImg-nv"} width="100%" src={staff.image} alt={staff.name} />
-    <CardBody width="100%" className={"cardBody-nv"}>
-        <CardTitle className={"cardTitle-nv"}>{staff.name}</CardTitle>
-    </CardBody>
-</Link>
-</Card>
+        <Card className={"mt-3 card-nv"}>
+            <ButtonGroup className={"mb-1"}>
+                                <Button color='danger'  className="fa fa-trash" onClick={()=>{handleDelete(staff.id)}}></Button>
+                                </ButtonGroup>
+            <Link to={`/staffs/${staff.id}`}>
+                <CardImg className={"cardImg-nv"} width="100%" src={staff.image} alt={staff.name} />
+                <CardBody width="100%" className={"cardBody-nv"}>
+                    <CardTitle className={"cardTitle-nv"}>{staff.name}</CardTitle>
+                </CardBody>
+            </Link>
+        </Card>
         
     );
 };
@@ -21,7 +29,7 @@ const RenderStaffItem = ({staff}) => {
 export  const DepartmentStaffs = (props) => {
     const staffs = props.staff.map((val) => (
         <div className="col-12 col-sm-4 col-md-2 mt-3 mb-3" key={val.id}>
-            <RenderStaffItem staff={val} />
+            <RenderStaffItem staff={val} deleteStaff={props.deleteStaff}/>
         </div>
     ));
 
